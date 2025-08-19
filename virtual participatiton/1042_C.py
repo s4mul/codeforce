@@ -1,40 +1,36 @@
+ 
 import sys
-from collections import defaultdict
-
-it = iter(sys.stdin.buffer.read().split())
-
-def nxt_int():
-
-    return int(next(it))
-
-t = nxt_int()
-for _ in range(t):
-    checklist = dict()
-    n = nxt_int()
-    k = nxt_int()
-
-    cnt = 0
-    for i in range(n):
-        idx = nxt_int() % k
-        idx = min(idx, abs(k - idx))
-
-        if not checklist.get(idx):
-            checklist[idx] = 1
-        else:
-            checklist[idx] += 1
-
+ 
+ 
+input = sys.stdin.readline
+print = sys.stdout.write
+checklist = dict()
+ans = []
+ 
+for _ in range(int(input())):
+    S = []
+ 
+    n, k = map(int, input().split())
+    a = map(int, input().split())
+    for i in a:
+        idx = i % k
+        S.append(min(idx, k - idx))
+ 
+ 
+    a = map(int, input().split())
     res = True
+    T = []
+    for i in a:
+        idx = i % k
+        T.append(min(idx, k - idx))
+    S.sort()
+    T.sort()
     for i in range(n):
-        idx = nxt_int() % k
-        idx = min(idx, abs(k - idx))
-        if checklist.get(idx):
-            checklist[idx] -= 1
-        else:
+        if S[i] != T[i]:
             res = False
-
-
+            break
     if res:
-        print("YES")
+        ans.append("YES\n")
     else:
-        print("NO")
-
+        ans.append("NO\n")
+print(''.join(ans))
